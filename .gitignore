@@ -1,0 +1,26 @@
+# Virtual Environment
+GuardianAI/venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Videos & Images
+recordings/
+screenshots/
+*.mp4
+*.avi
+*.jpg
+*.png
+
+# Models
+yolov8n.pt
+models/*.pt
+
+# VS Code
+.vscode/
+
+# Database
+*.db
