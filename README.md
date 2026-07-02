@@ -161,6 +161,37 @@ npm run dev
 ```
 *Open **[http://localhost:5173](http://localhost:5173)** in your browser.*
 
+---
+
+## 🐳 Production Deployment Options
+
+Guardian AI can be deployed in production using 3 methods:
+
+### Option 1: Docker & Docker Compose (Recommended for Cloud & Homelabs)
+The included `Dockerfile` performs a multi-stage build compiling the React frontend and setting up the OpenCV/dlib Python backend with volume persistence.
+
+```bash
+# Spin up Guardian AI in background
+docker compose up -d
+```
+- **Web App UI:** [http://localhost:8000/ui](http://localhost:8000/ui)
+- **API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
+- Persistent data is saved in Docker volumes (`guardian_database`, `guardian_recordings`, `guardian_screenshots`, `guardian_faces`).
+
+### Option 2: One-Click Production Launcher Script
+For a single-command launch that builds the frontend bundle and launches the server:
+```bash
+python start_production.py
+```
+
+### Option 3: Systemd Service (Linux Server / NVR / Raspberry Pi)
+For dedicated Linux machines, use the provided `guardian-ai.service` unit file:
+```bash
+sudo cp guardian-ai.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now guardian-ai
+```
+
 > **Production Mode:** The compiled React app is also served directly by FastAPI at **[http://localhost:8000/ui](http://localhost:8000/ui)**.
 
 ---

@@ -1,0 +1,21 @@
+[Unit]
+Description=Guardian AI Security & Multi-Camera Surveillance Server
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/Guardian-AI/GuardianAI
+ExecStart=/opt/Guardian-AI/GuardianAI/venv/bin/python main.py
+Restart=always
+RestartSec=5s
+KillMode=mixed
+
+# Security / Resource limits
+LimitNOFILE=65536
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
