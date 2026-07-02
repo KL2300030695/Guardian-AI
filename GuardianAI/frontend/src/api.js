@@ -55,9 +55,24 @@ export const api = {
   eventsByCamera:    (camId) => get(`/events/camera/${camId}`),
 
   // Analytics
-  analyticsDaily:    (camId) => get(camId ? `/events/analytics/daily?camera_id=${camId}` : "/events/analytics/daily"),
-  analyticsHourly:   (camId) => get(camId ? `/events/analytics/hourly?camera_id=${camId}` : "/events/analytics/hourly"),
-  analyticsCameras:  () => get("/events/analytics/cameras"),
+  analyticsDaily:            (camId) => get(camId ? `/events/analytics/daily?camera_id=${camId}` : "/events/analytics/daily"),
+  analyticsHourly:           (camId) => get(camId ? `/events/analytics/hourly?camera_id=${camId}` : "/events/analytics/hourly"),
+  analyticsCameras:          () => get("/events/analytics/cameras"),
+  analyticsOverview:         (camId, days) => {
+    const q = new URLSearchParams();
+    if (camId) q.append("camera_id", camId);
+    if (days) q.append("days", days);
+    const str = q.toString();
+    return get(`/events/analytics/overview${str ? '?' + str : ''}`);
+  },
+  analyticsTrends:           (camId, days = 30) => {
+    const q = new URLSearchParams({ days });
+    if (camId) q.append("camera_id", camId);
+    return get(`/events/analytics/trends?${q.toString()}`);
+  },
+  analyticsHourlyBreakdown:  (camId) => get(camId ? `/events/analytics/hourly-breakdown?camera_id=${camId}` : "/events/analytics/hourly-breakdown"),
+  analyticsCamerasComparison:() => get("/events/analytics/cameras-comparison"),
+  analyticsIdentities:       () => get("/events/analytics/identities"),
 
   // Settings
   settings:          () => get("/settings"),

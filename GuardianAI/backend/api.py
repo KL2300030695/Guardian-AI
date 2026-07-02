@@ -53,6 +53,9 @@ from backend.database import (
     get_all_events, get_recent_events, get_stats,
     get_events_by_date, get_events_by_camera,
     get_daily_counts, get_hourly_counts, get_camera_event_counts,
+    get_analytics_overview, get_analytics_trends,
+    get_analytics_hourly_breakdown, get_analytics_cameras_comparison,
+    get_analytics_identities,
 )
 from backend.cameras_db import get_all_cameras, get_camera
 from backend.face_database import get_all_faces, delete_face
@@ -263,6 +266,32 @@ def analytics_hourly(camera_id: int | None = None):
 @router.get("/events/analytics/cameras")
 def analytics_cameras():
     return get_camera_event_counts()
+
+
+# ── Phase 12: AI Analytics Endpoints ─────────────
+@router.get("/events/analytics/overview")
+def analytics_overview_endpoint(camera_id: int | None = None, days: int | None = None):
+    return get_analytics_overview(camera_id=camera_id, days=days)
+
+
+@router.get("/events/analytics/trends")
+def analytics_trends_endpoint(camera_id: int | None = None, days: int = 30):
+    return get_analytics_trends(camera_id=camera_id, limit_days=days)
+
+
+@router.get("/events/analytics/hourly-breakdown")
+def analytics_hourly_breakdown_endpoint(camera_id: int | None = None):
+    return get_analytics_hourly_breakdown(camera_id=camera_id)
+
+
+@router.get("/events/analytics/cameras-comparison")
+def analytics_cameras_comparison_endpoint():
+    return get_analytics_cameras_comparison()
+
+
+@router.get("/events/analytics/identities")
+def analytics_identities_endpoint():
+    return get_analytics_identities()
 
 
 # ── Settings ──────────────────────────────────────
